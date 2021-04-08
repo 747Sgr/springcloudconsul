@@ -1,0 +1,10 @@
+server:
+  port: 8886
+
+spring:
+  application:
+    name: order-service
+  cloud:
+    consul:
+      port: 8500
+      host: localhost

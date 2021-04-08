@@ -1,0 +1,38 @@
+
+#服务端口
+server:
+  port: 8888
+
+#服务名称
+spring:
+  application:
+    name: user-service
+  cloud:
+    consul:
+      host: localhost
+      port: 8500
+
+#更改负载均衡策略 策略要写全类名
+product-service:
+  ribbon:
+    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+
+feign:
+  client:
+    config:
+#      product-service:
+##        开启feign日志
+#        loggerLevel: full
+#        #指的是建立连接后从服务器读取到可用资源所用的时间
+#        ConnectTimeout: 5000
+#        #指的是建立连接所用的时间，适用于网络状况正常的情况下，两端连接所用的时间
+#        ReadTimeout: 5000
+# 设置默认时间，所有服务都使用
+      default:
+        ConnectTimeout: 5000
+        ReadTimeout: 5000
+#开启feign与hystrix结合
+  hystrix:
+    enabled: true
+
+

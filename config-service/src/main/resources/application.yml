@@ -1,0 +1,14 @@
+server:
+  port: 7878
+
+spring:
+  application:
+    name: config-service
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+    config:
+      server:
+        git:
+          uri: https://github.com/747Sgr/springcloudconfig.git

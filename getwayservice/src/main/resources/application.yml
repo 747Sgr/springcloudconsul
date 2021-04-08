@@ -1,0 +1,45 @@
+server:
+  port: 8989
+
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    consul:
+      port: 8500
+      host: localhost
+      discovery:
+        service-name: getwayservice
+
+#网关配置
+    gateway:
+      routes:
+        - id: user_route
+#          静态路由转发配置
+#          uri: http://localhost:8888/
+#          动态路由转发配置 附带负载均衡
+          uri: lb://user-service
+          predicates:
+            - Path=/user/**
+
+        - id: product_route
+#          uri: http://localhost:8889/
+          uri: lb://product-service
+          predicates:
+            - Path=/product/**
+#            在什么时间之后访问有效
+#            - After=2021-04-08T10:52:40.733+08:00[Asia/Shanghai]
+#           在什么时间之前访问有效
+#            - Before=2021-04-08T10:55:40.733+08:00[Asia/Shanghai]
+#            在什么时间之间访问有效
+#            - Between=2021-04-08T10:52:40.733+08:00[Asia/Shanghai],2021-04-08T10:58:00.733+08:00[Asia/Shanghai]
+#      开启动态路由配置
+      discovery:
+        locator:
+          enabled: true
+#开启路由仪表
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
